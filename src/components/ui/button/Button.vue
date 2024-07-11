@@ -2,7 +2,6 @@
 import type {IProps} from "./types";
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'click', event: Event): void
 }>();
 

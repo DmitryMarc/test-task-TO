@@ -2,16 +2,13 @@
 import ContactItem from "@/components/contact-item/ContactItem.vue";
 import Checkbox from "@/components/ui/checkbox/Checkbox.vue";
 import {IProps} from "./types";
+import {ref, watch} from "vue";
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'select', id: number): void,
-  // eslint-disable-next-line no-unused-vars
   (e: 'edit', id: number): void,
-  // eslint-disable-next-line no-unused-vars
   (e: 'selectItem', id: number): void,
-  // eslint-disable-next-line no-unused-vars
-  (e: 'selectAll', checked: boolean): void,
+  (e: 'selectAll', checked: boolean): void
 }>();
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -20,6 +17,8 @@ const props = withDefaults(defineProps<IProps>(), {
   isAllSelected: false,
   customClass: ''
 });
+
+const listRef = ref<HTMLUListElement | null>(null)
 
 const checkHandler = (checked: boolean) => {
   emit('selectAll', checked);
@@ -33,17 +32,25 @@ const editHandler = (id: number) => {
   emit('edit', id);
 }
 
+watch(
+    () => props.contacts.length,
+    (currentValue, prevValue) => {
+      if (currentValue > prevValue && listRef.value) {
+        listRef.value.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    }
+)
+
 </script>
 
 <template>
-
-  <TransitionGroup
-      tag="ul"
+  <ul
       v-if="props.contacts.length"
       :class="['list', customClass]"
-      name="list"
+      ref="listRef"
   >
-      <li class="list__header">
+    <TransitionGroup name="list">
+      <li class="list__header" :key="0">
         <h2 class="list__header__title">Контакты</h2>
         <Checkbox
             label="Выделить всё"
@@ -59,21 +66,12 @@ const editHandler = (id: number) => {
             @select="selectHandler"
             @edit="editHandler"
         />
-      </TransitionGroup>
+    </TransitionGroup>
+  </ul>
 
-    <span v-else>Данных нет</span>
+  <span v-else>Данных нет</span>
 </template>
 
 <style lang="scss" scoped>
 @import './style';
-
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s ease;
-}
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
 </style>

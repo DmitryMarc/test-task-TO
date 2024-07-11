@@ -1,11 +1,6 @@
-type DataType = {
-    id: number;
-    name: string;
-    phone: string;
-    email: string;
-}
+import type {ContactType} from "@/assets/types/types";
 
 export interface IProps {
     isSelected: boolean;
-    data: DataType
+    data: ContactType;
 }

@@ -4,9 +4,7 @@ import Button from "@/components/ui/button/Button.vue";
 import Icon from "@/components/ui/icon/Icon.vue";
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'select', id: number): void,
-  // eslint-disable-next-line no-unused-vars
   (e: 'edit', id: number): void
 }>();
 

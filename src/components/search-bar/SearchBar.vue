@@ -2,7 +2,6 @@
 import Input from "@/components/ui/input/Input.vue";
 import type {IProps} from "./types";
 
-// eslint-disable-next-line no-undef
 const model = defineModel<string>({required: true});
 
 const props = withDefaults(defineProps<IProps>(), {

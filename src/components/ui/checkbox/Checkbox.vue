@@ -5,7 +5,6 @@ import Icon from "@/components/ui/icon/Icon.vue";
 import { v4 as uuidv4 } from 'uuid';
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'check', checked: boolean): void
 }>();
 
@@ -16,6 +15,9 @@ const props = withDefaults(defineProps<IProps>(), {
 
 const uuid = uuidv4();
 
+const inputHandler = (e: Event) => {
+  emit('check', (e.target as HTMLInputElement).checked)
+}
 </script>
 
 <template>
@@ -33,7 +35,7 @@ const uuid = uuidv4();
         type="checkbox"
         class="input"
         :checked="props.isChecked"
-        @input="emit('check', $event.target.checked);"
+        @input="inputHandler"
     />
 </template>
 

@@ -6,12 +6,12 @@ import {computed, reactive, watch} from "vue";
 import type {ContactType} from "@/assets/types/types";
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'submit', data: ContactType | Omit<ContactType, 'id'>): void
 }>();
 
 const props = withDefaults(defineProps<IProps>(), {
-  customClass: ''
+  customClass: '',
+  resetFlag: false
 });
 
 const formData = reactive({
@@ -24,7 +24,7 @@ const submitHandler = async () => {
   if (!validate()) {
     return;
   }
-  const payload = {
+  const payload: ContactType | Omit<ContactType, 'id'> = {
     ...formData
   }
   if (props.data) {
@@ -64,6 +64,15 @@ const resetForm = () => {
   errorsMap.phone = '';
   errorsMap.email = '';
 }
+
+watch(
+    () => props.resetFlag,
+    (currentValue) => {
+      if (currentValue) {
+        resetForm();
+      }
+    }
+);
 
 watch(
     () => props.data,

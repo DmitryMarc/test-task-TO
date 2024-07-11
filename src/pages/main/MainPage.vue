@@ -17,6 +17,7 @@ const selectedItems = ref<Set<number>>(new Set([]));
 const mode = ref<'add' | 'edit'>('add');
 const searchValue = ref('');
 const isLoading = ref(false);
+const resetFlag = ref(false);
 
 onMounted(async () => {
   let contactsValue = LocalStorageHelper.getData('contacts');
@@ -42,8 +43,13 @@ const selectHandler = (id: number) => {
   }
 }
 
-const editHandler = (id: number) => {
+const openModal = () => {
   isModalShown.value = true;
+  resetFlag.value = false;
+}
+
+const editHandler = (id: number) => {
+  openModal()
   mode.value = 'edit';
   const foundItem = contacts.value.find(item => item.id === id);
   if (foundItem) {
@@ -106,6 +112,7 @@ const editListItem = (data: ContactType) => {
 
 const closeHandler = () => {
   isModalShown.value = false;
+  resetFlag.value = true;
 
   if (editableData.value) {
     editableData.value = null;
@@ -139,7 +146,7 @@ const list = computed(() => {
     <div class="page__btns">
       <Button
           custom-сlass="page__btns__item"
-          @click="isModalShown = true"
+          @click="openModal"
       >
         Добавить
       </Button>
@@ -172,7 +179,11 @@ const list = computed(() => {
       :has-close-btn="true"
       @close="closeHandler"
   >
-    <ContactForm :data="editableData" @submit="submitHandler" />
+    <ContactForm
+        :data="editableData"
+        @submit="submitHandler"
+        :reset-flag="resetFlag"
+    />
   </Modal>
 </template>
 

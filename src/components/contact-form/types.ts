@@ -1,11 +1,7 @@
-type DataType = {
-    id?: number | string;
-    name: string;
-    phone: string;
-    email: string;
-}
+import type {ContactType} from "@/assets/types/types";
 
 export interface IProps {
-    data: DataType
+    data: ContactType | Omit<ContactType, 'id'>
     customClass?: string;
+    resetFlag: boolean
 }

@@ -4,7 +4,9 @@ import {ref, watch} from "vue";
 import Icon from "@/components/ui/icon/Icon.vue";
 import Button from "@/components/ui/button/Button.vue";
 
-const emit = defineEmits<{close: []}>();
+const emit = defineEmits<{
+  (e: 'close'): void
+}>();
 const props = withDefaults(defineProps<ModalProps>(), {
 	isShown: false,
   hasCloseBtn: false,
@@ -33,8 +35,17 @@ watch(
 </script>
 
 <template>
-	<dialog ref="modalRef" class="modal" :class="props.customClass" @click.self="closeHandler">
-    <Button v-if="props.hasCloseBtn" custom-class="close-btn" @click="emit('close')">
+	<dialog
+      ref="modalRef"
+      class="modal"
+      :class="props.customClass"
+      @click.self="closeHandler"
+  >
+    <Button
+        v-if="props.hasCloseBtn"
+        custom-class="close-btn"
+        @click="emit('close')"
+    >
       <Icon name="close"/>
     </Button>
 		<slot> Модальное окно </slot>
