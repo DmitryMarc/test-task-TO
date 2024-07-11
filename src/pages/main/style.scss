@@ -1,0 +1,26 @@
+@import '@/assets/scss/vars';
+@import '@/assets/scss/mixins';
+
+$root: '.page';
+#{$root} {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  max-width: 1520px;
+  padding: 16px;
+  background-color: $white;
+
+  &__search,
+  &__list,
+  &__btns {
+    max-width: 500px;
+  }
+
+  &__btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}

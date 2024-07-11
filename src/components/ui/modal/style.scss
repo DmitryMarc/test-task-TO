@@ -1,0 +1,41 @@
+@import '@/assets/scss/vars';
+@import '@/assets/scss/mixins';
+
+$root: '.modal';
+
+#{$root} {
+	width: 100%;
+	max-width: 500px;
+	height: fit-content;
+	min-height: 100px;
+	max-height: 100vh;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	overflow-y: auto;
+	border-radius: 16px;
+
+	&::backdrop {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+
+	.close-btn {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		cursor: pointer;
+		transition: 0.5s;
+		padding: 0;
+		border: none;
+
+		@media (max-width: 398px) {
+			top: 8px;
+			right: 8px;
+		}
+
+		&:hover {
+			transform: rotate(180deg);
+		}
+	}
+}
