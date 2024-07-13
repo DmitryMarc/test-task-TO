@@ -43,7 +43,7 @@ watch(
   >
     <Button
         v-if="props.hasCloseBtn"
-        custom-class="close-btn"
+        custom-class="modal__btn"
         @click="emit('close')"
     >
       <Icon name="close"/>

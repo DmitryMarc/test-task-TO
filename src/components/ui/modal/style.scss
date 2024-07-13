@@ -20,11 +20,10 @@ $root: '.modal';
 		background-color: rgba(0, 0, 0, 0.2);
 	}
 
-	.close-btn {
+	&__btn {
 		position: absolute;
 		top: 16px;
 		right: 16px;
-		cursor: pointer;
 		transition: 0.5s;
 		padding: 0;
 		border: none;
@@ -35,7 +34,12 @@ $root: '.modal';
 		}
 
 		&:hover {
+			background-color: initial;
 			transform: rotate(180deg);
+		}
+
+		&:hover {
+			background-color: inherit;
 		}
 	}
 }
