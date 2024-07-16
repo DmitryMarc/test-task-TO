@@ -4,7 +4,7 @@ import {computed, onMounted, ref, watch} from "vue";
 import Button from "@/components/ui/button/Button.vue";
 import ContactForm from "@/components/contact-form/ContactForm.vue";
 import Modal from "@/components/ui/modal/Modal.vue";
-import type {ContactType} from "@/assets/types/types";
+import type {ContactType, ContactWithoutKeyType} from "@/assets/types/types";
 import SearchBar from "@/components/search-bar/SearchBar.vue";
 import {LocalStorageHelper} from "@/utils/localStorageHelper";
 import {Api} from "@/api/api";
@@ -82,7 +82,7 @@ const selectAllHandler = (checked: boolean) => {
   }
 }
 
-const submitHandler = (data: ContactType | Omit<ContactType, 'id'>) => {
+const submitHandler = (data: Record<ContactWithoutKeyType<'id'>, string> & {id?: number}) => {
   switch (mode.value) {
     case 'add':
       addItemToList(data);

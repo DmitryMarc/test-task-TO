@@ -4,3 +4,5 @@ export type ContactType = {
     phone: string;
     email: string;
 }
+
+export type ContactWithoutKeyType<T> = Exclude<keyof ContactType, T>
